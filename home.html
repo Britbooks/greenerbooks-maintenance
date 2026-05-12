@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance | BritBooks</title>
+    <style>
+        :root {
+            --bb-blue: #00153D; 
+            --bb-red: #C8102E;  
+            --bb-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bb-white);
+            color: var(--bb-blue);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Sophisticated smooth entry */
+        .wrapper {
+            opacity: 0;
+            animation: fadeIn 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .logo {
+            width: 240px;
+            height: auto;
+            margin-bottom: 60px;
+            /* No filters - keeping original colors */
+        }
+
+        .divider {
+            width: 50px;
+            height: 1.5px;
+            background-color: var(--bb-red);
+            margin: 0 auto 40px;
+        }
+
+        h1 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: var(--bb-blue);
+        }
+
+        p {
+            font-size: 1.6rem;
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #222;
+            font-style: italic;
+        }
+
+        .contact-container {
+            margin-top: 20px;
+        }
+
+        .contact-link {
+            font-size: 0.95rem;
+            color: var(--bb-blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 21, 61, 0.2);
+            padding-bottom: 5px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--bb-red);
+            border-bottom-color: var(--bb-red);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 50px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #aaa;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @media (max-width: 600px) {
+            p { font-size: 1.3rem; }
+            .logo { width: 200px; }
+            h1 { font-size: 10px; letter-spacing: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <img src="https://britbooksfrontend-production-bb2a.up.railway.app/logobrit.png" alt="BritBooks Logo" class="logo">
+        
+        <div class="divider"></div>
+        
+        <h1>Maintenance in Progress</h1>
+        
+        <p>Our online store is briefly offline while we refine our collection. We look forward to welcoming you back shortly.</p>
+
+        <div class="contact-section">
+          
+            <p style="font-size: 0.9rem; margin-bottom: 15px; font-style: normal; color: #777;">Please direct all inquiries to:</p>
+            <a href="mailto:customercare@britbooks.co.uk" class="contact-link">
+                customercare@britbooks.co.uk
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 BritBooks &bull; London
+    </footer>
+
+</body>
+</html>
