@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance | BritBooks</title>
+    <title>Maintenance | Greener Books</title>
     <style>
         :root {
-            --bb-blue: #00153D; 
-            --bb-red: #C8102E;  
-            --bb-white: #FFFFFF;
+            --gb-green: #1A5C38;
+            --gb-green-mid: #2E8B57;
+            --gb-green-light: #4CAF50;
+            --gb-green-tint: #EBF5EE;
+            --gb-white: #FFFFFF;
+            --gb-text: #1A2E22;
         }
 
         * {
@@ -19,127 +22,204 @@
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: var(--bb-white);
-            color: var(--bb-blue);
-            height: 100vh;
+            background-color: var(--gb-white);
+            color: var(--gb-text);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Sophisticated smooth entry */
+        /* Subtle leaf-pattern background accent */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -120px;
+            right: -120px;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(46,139,87,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -100px;
+            left: -100px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26,92,56,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
         .wrapper {
             opacity: 0;
-            animation: fadeIn 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: fadeIn 1.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
             text-align: center;
-            padding: 20px;
+            padding: 40px 20px;
             width: 100%;
-            max-width: 800px;
+            max-width: 760px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-wrap {
+            margin-bottom: 52px;
         }
 
         .logo {
-            width: 240px;
+            width: 200px;
             height: auto;
-            margin-bottom: 60px;
-            /* No filters - keeping original colors */
         }
 
         .divider {
-            width: 50px;
-            height: 1.5px;
-            background-color: var(--bb-red);
-            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gb-green-mid));
+        }
+
+        .divider-line:last-child {
+            background: linear-gradient(90deg, var(--gb-green-mid), transparent);
+        }
+
+        .divider-leaf {
+            color: var(--gb-green-light);
+            font-size: 14px;
         }
 
         h1 {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 6px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            color: var(--bb-blue);
+            font-weight: 600;
+            margin-bottom: 28px;
+            color: var(--gb-green);
         }
 
-        p {
-            font-size: 1.6rem;
+        .tagline {
+            font-size: 1.55rem;
             font-family: Georgia, "Times New Roman", serif;
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            color: #222;
+            line-height: 1.6;
+            max-width: 580px;
+            margin: 0 auto 44px;
+            color: #2a3d2f;
             font-style: italic;
         }
 
-        .contact-container {
-            margin-top: 20px;
+        .badge {
+            display: inline-block;
+            background-color: var(--gb-green-tint);
+            color: var(--gb-green);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(46,139,87,0.25);
+            margin-bottom: 44px;
+        }
+
+        .contact-section {
+            margin-top: 8px;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #7a9a82;
+            margin-bottom: 14px;
+            font-style: normal;
+            letter-spacing: 0.5px;
         }
 
         .contact-link {
             font-size: 0.95rem;
-            color: var(--bb-blue);
+            color: var(--gb-green);
             text-decoration: none;
-            border-bottom: 1px solid rgba(0, 21, 61, 0.2);
-            padding-bottom: 5px;
+            border-bottom: 1.5px solid rgba(26,92,56,0.25);
+            padding-bottom: 4px;
             font-weight: 500;
-            transition: all 0.4s ease;
+            transition: all 0.35s ease;
         }
 
         .contact-link:hover {
-            color: var(--bb-red);
-            border-bottom-color: var(--bb-red);
+            color: var(--gb-green-light);
+            border-bottom-color: var(--gb-green-light);
         }
 
         footer {
-            position: absolute;
-            bottom: 50px;
-            font-size: 11px;
+            position: fixed;
+            bottom: 36px;
+            font-size: 10.5px;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: #aaa;
+            color: #9dbb9d;
+            z-index: 1;
         }
 
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
+            from {
+                opacity: 0;
+                transform: translateY(18px);
             }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
         @media (max-width: 600px) {
-            p { font-size: 1.3rem; }
-            .logo { width: 200px; }
-            h1 { font-size: 10px; letter-spacing: 4px; }
+            .tagline { font-size: 1.25rem; }
+            .logo { width: 170px; }
+            h1 { font-size: 9px; letter-spacing: 4px; }
+            .divider-line { width: 40px; }
         }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
-        <img src="https://britbooksfrontend-production-bb2a.up.railway.app/logobrit.png" alt="BritBooks Logo" class="logo">
-        
-        <div class="divider"></div>
-        
+
+        <div class="logo-wrap">
+            <img src="https://greenerbooks.netlify.app/logo.png" alt="Greener Books Logo" class="logo">
+        </div>
+
+        <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-leaf">&#9679;</span>
+            <span class="divider-line"></span>
+        </div>
+                                                                                           
+               
         <h1>Maintenance in Progress</h1>
-        
-        <p>Our online store is briefly offline while we refine our collection. We look forward to welcoming you back shortly.</p>
+
+        <p class="tagline">Our online store is taking a brief pause while we tend to things behind the scenes. We'll be back shortly, greener than ever.</p>
+
+        <div class="badge">Back Soon</div>
 
         <div class="contact-section">
-          
-            <p style="font-size: 0.9rem; margin-bottom: 15px; font-style: normal; color: #777;">Please direct all inquiries to:</p>
-            <a href="mailto:customercare@britbooks.co.uk" class="contact-link">
-                customercare@britbooks.co.uk
-            </a>
+            <p class="contact-label">For enquiries, please reach us at</p>
+            <a href="mailto:hello@greenerbooks.co.uk" class="contact-link">customer@greenerbooks.co.uk</a>
         </div>
+
     </div>
 
     <footer>
-        &copy; 2026 BritBooks &bull; London
+        &copy; 2026 Greener Books
     </footer>
 
 </body>
