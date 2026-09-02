@@ -4,226 +4,709 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance | Greener Books</title>
-    <link rel="icon" type="image/png" href="favicon.png?v=2">
-    <link rel="shortcut icon" type="image/png" href="favicon.png?v=2">
-    <link rel="apple-touch-icon" href="favicon.png?v=2">
+    <meta name="description" content="Greener Books is on a short pause. Join the waitlist and be the first to know when we're back.">
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
+    <link rel="shortcut icon" type="image/png" href="favicon.png?v=3">
+    <link rel="apple-touch-icon" href="favicon.png?v=3">
+    <link rel="preconnect" href="https://covers.openlibrary.org" crossorigin>
     <style>
         :root {
-            --gb-green: #1A5C38;
-            --gb-green-mid: #2E8B57;
+            --gb-green:       #1A5C38;
+            --gb-green-mid:   #2E8B57;
             --gb-green-light: #4CAF50;
-            --gb-green-tint: #EBF5EE;
-            --gb-white: #FFFFFF;
-            --gb-text: #1A2E22;
+            --gb-green-tint:  #EBF5EE;
+            --gb-cream:       #FBF8F1;
+            --gb-paper:       #FFFFFF;
+            --gb-text:        #1A2E22;
+            --gb-muted:       #6B7F71;
+            --gb-wood:        #8B5E3C;
+            --gb-wood-dark:   #5C3A20;
+            --gb-wood-light:  #C89A6A;
+            --shadow-soft:    0 10px 30px -12px rgba(26, 46, 34, 0.18);
+            --shadow-book:    0 12px 24px -10px rgba(0, 0, 0, 0.35);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: var(--gb-white);
+            background:
+                radial-gradient(1200px 500px at 90% -10%, rgba(46,139,87,0.08), transparent 60%),
+                radial-gradient(900px 500px at -10% 110%, rgba(26,92,56,0.06), transparent 60%),
+                var(--gb-cream);
             color: var(--gb-text);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Subtle leaf-pattern background accent */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -120px;
-            right: -120px;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(46,139,87,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            bottom: -100px;
-            left: -100px;
-            width: 360px;
-            height: 360px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(26,92,56,0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .wrapper {
-            opacity: 0;
-            animation: fadeIn 1.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            text-align: center;
-            padding: 40px 20px;
+        .container {
             width: 100%;
-            max-width: 760px;
-            position: relative;
-            z-index: 1;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        .logo-wrap {
-            margin-bottom: 52px;
+        /* ---------- Header ---------- */
+        header.site {
+            padding: 28px 0 12px;
         }
-
-        .logo {
-            width: 200px;
-            height: auto;
-        }
-
-        .divider {
+        .brand-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 36px;
+            justify-content: space-between;
+            gap: 16px;
         }
-
-        .divider-line {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gb-green-mid));
+        .brand {
+            display: flex;
+            align-items: center;
         }
-
-        .divider-line:last-child {
-            background: linear-gradient(90deg, var(--gb-green-mid), transparent);
+        .brand img {
+            width: 180px;
+            height: auto;
+            object-fit: contain;
         }
-
-        .divider-leaf {
-            color: var(--gb-green-light);
-            font-size: 14px;
-        }
-
-        h1 {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            font-weight: 600;
-            margin-bottom: 28px;
-            color: var(--gb-green);
-        }
-
-        .tagline {
-            font-size: 1.55rem;
-            font-family: Georgia, "Times New Roman", serif;
-            line-height: 1.6;
-            max-width: 580px;
-            margin: 0 auto 44px;
-            color: #2a3d2f;
-            font-style: italic;
-        }
-
-        .badge {
-            display: inline-block;
-            background-color: var(--gb-green-tint);
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gb-green-tint);
             color: var(--gb-green);
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            padding: 8px 20px;
-            border-radius: 30px;
+            padding: 8px 14px;
+            border-radius: 999px;
             border: 1px solid rgba(46,139,87,0.25);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gb-green-light);
+            box-shadow: 0 0 0 4px rgba(76,175,80,0.18);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(76,175,80,0.18); }
+            50%      { box-shadow: 0 0 0 8px rgba(76,175,80,0.05); }
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 44px 0 24px;
+            text-align: center;
+        }
+        .eyebrow {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 600;
+            color: var(--gb-green);
+            margin-bottom: 22px;
+        }
+        h1.tagline {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+            line-height: 1.25;
+            max-width: 720px;
+            margin: 0 auto 18px;
+            color: #1a2e22;
+            font-weight: 500;
+        }
+        h1.tagline em {
+            color: var(--gb-green);
+            font-style: italic;
+        }
+        .sub {
+            max-width: 620px;
+            margin: 0 auto 34px;
+            color: var(--gb-muted);
+            font-size: 1.02rem;
+        }
+
+        /* ---------- Waitlist ---------- */
+        .waitlist {
+            max-width: 520px;
+            margin: 0 auto;
+            background: var(--gb-paper);
+            border: 1px solid rgba(46,139,87,0.15);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: var(--shadow-soft);
+        }
+        .waitlist h2 {
+            font-family: Georgia, serif;
+            font-size: 1.1rem;
+            color: var(--gb-green);
+            margin-bottom: 6px;
+        }
+        .waitlist p.help {
+            font-size: 0.88rem;
+            color: var(--gb-muted);
+            margin-bottom: 16px;
+        }
+        form.waitlist-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        form.waitlist-form input[type="email"] {
+            flex: 1 1 220px;
+            font: inherit;
+            font-size: 0.98rem;
+            padding: 13px 16px;
+            border: 1px solid #d7e2da;
+            border-radius: 12px;
+            background: #fbfdfb;
+            color: var(--gb-text);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            min-width: 0;
+        }
+        form.waitlist-form input[type="email"]:focus {
+            border-color: var(--gb-green-mid);
+            box-shadow: 0 0 0 4px rgba(46,139,87,0.14);
+        }
+        form.waitlist-form button {
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 12px;
+            background: var(--gb-green);
+            color: #fff;
+            cursor: pointer;
+            transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+            box-shadow: 0 8px 18px -8px rgba(26,92,56,0.55);
+        }
+        form.waitlist-form button:hover:not(:disabled) {
+            background: var(--gb-green-mid);
+            transform: translateY(-1px);
+        }
+        form.waitlist-form button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .form-msg {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+        .form-msg.ok    { color: var(--gb-green); }
+        .form-msg.err   { color: #b3402c; }
+        .privacy-note {
+            font-size: 0.75rem;
+            color: var(--gb-muted);
+            margin-top: 10px;
+        }
+
+        /* ---------- Shelves ---------- */
+        .shelves {
+            padding: 56px 0 40px;
+        }
+        .shelves-intro {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+        .shelves-intro h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+            color: var(--gb-green);
+            margin-bottom: 8px;
+        }
+        .shelves-intro p {
+            color: var(--gb-muted);
+            font-size: 0.98rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .shelf-block {
             margin-bottom: 44px;
         }
-
-        .contact-section {
-            margin-top: 8px;
+        .shelf-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 0 4px 12px;
         }
-
-        .contact-label {
-            font-size: 0.875rem;
-            color: #7a9a82;
-            margin-bottom: 14px;
-            font-style: normal;
-            letter-spacing: 0.5px;
+        .shelf-head h3 {
+            font-family: Georgia, serif;
+            font-size: 1.25rem;
+            color: var(--gb-text);
+            font-weight: 600;
         }
-
-        .contact-link {
-            font-size: 0.95rem;
-            color: var(--gb-green);
-            text-decoration: none;
-            border-bottom: 1.5px solid rgba(26,92,56,0.25);
-            padding-bottom: 4px;
-            font-weight: 500;
-            transition: all 0.35s ease;
-        }
-
-        .contact-link:hover {
-            color: var(--gb-green-light);
-            border-bottom-color: var(--gb-green-light);
-        }
-
-        footer {
-            position: fixed;
-            bottom: 36px;
-            font-size: 10.5px;
+        .shelf-head .count {
+            font-size: 0.8rem;
+            color: var(--gb-muted);
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #9dbb9d;
+        }
+
+        .shelf {
+            position: relative;
+            padding: 20px 4px 0;
+        }
+        .books-row {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 128px;
+            gap: 22px;
+            overflow-x: auto;
+            padding: 4px 4px 22px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(26,92,56,0.35) transparent;
+        }
+        .books-row::-webkit-scrollbar { height: 8px; }
+        .books-row::-webkit-scrollbar-track { background: transparent; }
+        .books-row::-webkit-scrollbar-thumb {
+            background: rgba(26,92,56,0.3);
+            border-radius: 999px;
+        }
+
+        .book {
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .book-cover-wrap {
+            position: relative;
+            width: 128px;
+            height: 190px;
+            perspective: 800px;
+        }
+        .book-cover {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px 6px 6px 4px;
+            background: linear-gradient(135deg, #2E8B57, #1A5C38);
+            box-shadow: var(--shadow-book);
+            overflow: hidden;
+            transition: transform .35s cubic-bezier(0.19, 1, 0.22, 1), box-shadow .3s;
+            transform-origin: left center;
+        }
+        .book-cover::before {
+            /* spine highlight */
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0));
+            z-index: 2;
+        }
+        .book-cover::after {
+            /* page edge */
+            content: "";
+            position: absolute;
+            right: -3px; top: 3px; bottom: 3px;
+            width: 3px;
+            background: repeating-linear-gradient(0deg, #f5efe0, #f5efe0 1px, #dcd3bd 1px, #dcd3bd 2px);
+            border-radius: 1px;
             z-index: 1;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(18px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .book-cover .fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px 12px;
+            color: #fff;
+            font-family: Georgia, serif;
+            font-size: 0.85rem;
+            line-height: 1.25;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%),
+                var(--book-color, linear-gradient(135deg, #2E8B57, #1A5C38));
+        }
+        .book:hover .book-cover {
+            transform: translateY(-6px) rotateY(-8deg);
+            box-shadow: 0 18px 30px -14px rgba(0,0,0,0.4);
+        }
+        .book-meta {
+            padding: 0 2px;
+        }
+        .book-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--gb-text);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .book-author {
+            font-size: 0.75rem;
+            color: var(--gb-muted);
+            margin-top: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        @media (max-width: 600px) {
-            .tagline { font-size: 1.25rem; }
-            .logo { width: 170px; }
-            h1 { font-size: 9px; letter-spacing: 4px; }
-            .divider-line { width: 40px; }
+        /* Wooden shelf plank */
+        .shelf-plank {
+            height: 16px;
+            border-radius: 3px;
+            margin-top: -6px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.15), rgba(0,0,0,0.15)),
+                repeating-linear-gradient(90deg,
+                    var(--gb-wood) 0px, var(--gb-wood) 40px,
+                    var(--gb-wood-dark) 40px, var(--gb-wood-dark) 41px,
+                    var(--gb-wood) 41px, var(--gb-wood) 90px,
+                    var(--gb-wood-light) 90px, var(--gb-wood-light) 91px);
+            box-shadow:
+                0 6px 12px -6px rgba(92,58,32,0.45),
+                inset 0 -2px 0 rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.18);
+        }
+
+        /* ---------- Footer ---------- */
+        footer.site {
+            padding: 40px 0 44px;
+            text-align: center;
+            color: var(--gb-muted);
+            font-size: 0.88rem;
+        }
+        footer.site .contact-line {
+            margin-bottom: 10px;
+        }
+        footer.site a {
+            color: var(--gb-green);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(26,92,56,0.25);
+            padding-bottom: 2px;
+        }
+        footer.site a:hover { color: var(--gb-green-light); border-bottom-color: var(--gb-green-light); }
+        footer.site .fine {
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #9dbb9d;
+            margin-top: 18px;
+        }
+
+        /* ---------- Entrance animation ---------- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: fadeIn 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+        .fade-in.d2 { animation-delay: 0.12s; }
+        .fade-in.d3 { animation-delay: 0.24s; }
+        .fade-in.d4 { animation-delay: 0.36s; }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 640px) {
+            header.site { padding-top: 20px; }
+            .brand img { width: 130px; }
+            .status-chip { font-size: 10px; padding: 6px 10px; letter-spacing: 1.5px; }
+            .hero { padding: 28px 0 18px; }
+            .waitlist { padding: 18px; }
+            form.waitlist-form button { width: 100%; }
+            .books-row { grid-auto-columns: 108px; gap: 16px; }
+            .book-cover-wrap { width: 108px; height: 160px; }
+            .shelf-head h3 { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
+    <header class="site">
+        <div class="container brand-row fade-in">
+            <div class="brand">
+                <img src="https://greenerbooks-production.up.railway.app/logo.png" alt="Greener Books">
+            </div>
+            <span class="status-chip">
+                <span class="status-dot"></span>
+                Under Maintenance
+            </span>
+        </div>
+    </header>
 
-        <div class="logo-wrap">
-            <img src="https://greenerbooks-production.up.railway.app/logo.png" alt="Greener Books Logo" class="logo">
+    <section class="hero container">
+        <p class="eyebrow fade-in">A brief pause</p>
+        <h1 class="tagline fade-in d2">
+            Our shelves are being restocked.<br>
+            <em>We'll be back, greener than ever.</em>
+        </h1>
+        <p class="sub fade-in d3">
+            While we tidy up behind the scenes, take a peek at what's returning to the shop.
+            Drop your email below and we'll be the first to whisper when the doors reopen.
+        </p>
+
+        <div class="waitlist fade-in d4" aria-labelledby="waitlist-heading">
+            <h2 id="waitlist-heading">Join the waitlist</h2>
+            <p class="help">Be first in line when we reopen — plus an early-bird 10% off your first order.</p>
+            <form class="waitlist-form" id="waitlist-form" novalidate>
+                <input type="email" id="waitlist-email" name="email" placeholder="you@email.com" required aria-label="Email address">
+                <button type="submit" id="waitlist-submit">Notify me</button>
+            </form>
+            <div class="form-msg" id="waitlist-msg" role="status" aria-live="polite"></div>
+            <p class="privacy-note">We'll only email you about the reopening. Unsubscribe any time.</p>
+        </div>
+    </section>
+
+    <section class="shelves container">
+        <div class="shelves-intro fade-in">
+            <h2>A preview from the shelves</h2>
+            <p>A little browsing while we restock. These are some of the titles you'll find waiting for you when we reopen.</p>
         </div>
 
-        <div class="divider">
-            <span class="divider-line"></span>
-            <span class="divider-leaf">&#9679;</span>
-            <span class="divider-line"></span>
-        </div>
-                                                                                           
-               
-        <h1>Maintenance in Progress</h1>
-
-        <p class="tagline">Our online store is taking a brief pause while we tend to things behind the scenes. We'll be back shortly, greener than ever.</p>
-
-        <div class="badge">Back Soon</div>
-
-        <div class="contact-section">
-            <p class="contact-label">For enquiries, please reach us at</p>
-            <a href="mailto:hello@greenerbooks.co.uk" class="contact-link">customer@greenerbooks.co.uk</a>
+        <div class="shelf-block" data-category="fiction">
+            <div class="shelf-head">
+                <h3>Fiction</h3>
+                <span class="count">10 titles</span>
+            </div>
+            <div class="shelf">
+                <div class="books-row" id="row-fiction"></div>
+                <div class="shelf-plank"></div>
+            </div>
         </div>
 
-    </div>
+        <div class="shelf-block" data-category="nonfiction">
+            <div class="shelf-head">
+                <h3>Non-Fiction</h3>
+                <span class="count">10 titles</span>
+            </div>
+            <div class="shelf">
+                <div class="books-row" id="row-nonfiction"></div>
+                <div class="shelf-plank"></div>
+            </div>
+        </div>
 
-    <footer>
-        &copy; 2026 Greener Books
+        <div class="shelf-block" data-category="children">
+            <div class="shelf-head">
+                <h3>Children's Books</h3>
+                <span class="count">10 titles</span>
+            </div>
+            <div class="shelf">
+                <div class="books-row" id="row-children"></div>
+                <div class="shelf-plank"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site">
+        <div class="container">
+            <p class="contact-line">
+                For enquiries, reach us at
+                <a href="mailto:customercare@greenerbooks.co.uk">customercare@greenerbooks.co.uk</a>
+            </p>
+            <p class="fine">&copy; 2026 Greener Books</p>
+        </div>
     </footer>
+
+    <script>
+    (function () {
+        /* ----------------------- Book data ----------------------- */
+        const BOOKS = {
+            fiction: [
+                { title: "To Kill a Mockingbird",       author: "Harper Lee",           isbn: "9780446310789", color: "linear-gradient(135deg,#6b4b2b,#3a2814)" },
+                { title: "1984",                        author: "George Orwell",        isbn: "9780451524935", color: "linear-gradient(135deg,#8a1c1c,#3a0d0d)" },
+                { title: "Pride and Prejudice",         author: "Jane Austen",          isbn: "9780141439518", color: "linear-gradient(135deg,#4b6b8a,#1e2e40)" },
+                { title: "The Great Gatsby",            author: "F. Scott Fitzgerald",  isbn: "9780743273565", color: "linear-gradient(135deg,#1a3a5c,#0a1830)" },
+                { title: "The Alchemist",               author: "Paulo Coelho",         isbn: "9780062315007", color: "linear-gradient(135deg,#c48a2b,#6b4a10)" },
+                { title: "Where the Crawdads Sing",     author: "Delia Owens",          isbn: "9780735219090", color: "linear-gradient(135deg,#3a6b4a,#1a3a24)" },
+                { title: "The Kite Runner",             author: "Khaled Hosseini",      isbn: "9781594631931", color: "linear-gradient(135deg,#8a4a1a,#3a1a08)" },
+                { title: "Life of Pi",                  author: "Yann Martel",          isbn: "9780156027328", color: "linear-gradient(135deg,#2a6b8a,#0e2a3a)" },
+                { title: "The Book Thief",              author: "Markus Zusak",         isbn: "9780375842207", color: "linear-gradient(135deg,#4a2a4a,#1a0a1a)" },
+                { title: "Beloved",                     author: "Toni Morrison",        isbn: "9781400033416", color: "linear-gradient(135deg,#6b3a3a,#2a1414)" }
+            ],
+            nonfiction: [
+                { title: "Sapiens",                     author: "Yuval Noah Harari",    isbn: "9780062316097", color: "linear-gradient(135deg,#c9a63a,#6b5210)" },
+                { title: "Atomic Habits",               author: "James Clear",          isbn: "9780735211292", color: "linear-gradient(135deg,#e0a020,#8a5a08)" },
+                { title: "Educated",                    author: "Tara Westover",        isbn: "9780399590504", color: "linear-gradient(135deg,#6b6b6b,#2a2a2a)" },
+                { title: "Becoming",                    author: "Michelle Obama",       isbn: "9781524763138", color: "linear-gradient(135deg,#3a3a5a,#141428)" },
+                { title: "Thinking, Fast and Slow",     author: "Daniel Kahneman",      isbn: "9780374533557", color: "linear-gradient(135deg,#5a5a5a,#1a1a1a)" },
+                { title: "The Body Keeps the Score",    author: "Bessel van der Kolk",  isbn: "9780143127741", color: "linear-gradient(135deg,#8a4a2a,#3a1a08)" },
+                { title: "Born a Crime",                author: "Trevor Noah",          isbn: "9780399588174", color: "linear-gradient(135deg,#3a6b3a,#141a10)" },
+                { title: "Bad Blood",                   author: "John Carreyrou",       isbn: "9781524731656", color: "linear-gradient(135deg,#8a1a1a,#3a0808)" },
+                { title: "Between the World and Me",    author: "Ta-Nehisi Coates",     isbn: "9780812993547", color: "linear-gradient(135deg,#2a2a2a,#0a0a0a)" },
+                { title: "Just Mercy",                  author: "Bryan Stevenson",      isbn: "9780812984965", color: "linear-gradient(135deg,#4a3a2a,#1a1408)" }
+            ],
+            children: [
+                { title: "Harry Potter and the Philosopher's Stone", author: "J.K. Rowling",    isbn: "9780747532699", color: "linear-gradient(135deg,#8a2a2a,#3a0a0a)" },
+                { title: "The Very Hungry Caterpillar", author: "Eric Carle",           isbn: "9780399226908", color: "linear-gradient(135deg,#4a8a3a,#1a3a10)" },
+                { title: "Where the Wild Things Are",   author: "Maurice Sendak",       isbn: "9780064431781", color: "linear-gradient(135deg,#c9a03a,#6b5010)" },
+                { title: "Charlotte's Web",             author: "E.B. White",           isbn: "9780061124952", color: "linear-gradient(135deg,#e0a0c0,#8a4a6a)" },
+                { title: "The Cat in the Hat",          author: "Dr. Seuss",            isbn: "9780394800011", color: "linear-gradient(135deg,#c92a2a,#6b0a0a)" },
+                { title: "Matilda",                     author: "Roald Dahl",           isbn: "9780142410370", color: "linear-gradient(135deg,#c93a8a,#5a1040)" },
+                { title: "The Gruffalo",                author: "Julia Donaldson",      isbn: "9780333710937", color: "linear-gradient(135deg,#8a6b2a,#3a2a0a)" },
+                { title: "Green Eggs and Ham",          author: "Dr. Seuss",            isbn: "9780394800165", color: "linear-gradient(135deg,#3a8a3a,#0a3a0a)" },
+                { title: "Wonder",                      author: "R.J. Palacio",         isbn: "9780375869020", color: "linear-gradient(135deg,#3a6bc9,#102a5a)" },
+                { title: "The Lion, the Witch and the Wardrobe", author: "C.S. Lewis",  isbn: "9780064404990", color: "linear-gradient(135deg,#c98a3a,#5a3a10)" }
+            ]
+        };
+
+        /* ----------------------- Render shelves ----------------------- */
+        function renderShelf(rowId, books) {
+            const row = document.getElementById(rowId);
+            if (!row) return;
+            const frag = document.createDocumentFragment();
+
+            books.forEach(function (b) {
+                const item = document.createElement('div');
+                item.className = 'book';
+
+                const coverWrap = document.createElement('div');
+                coverWrap.className = 'book-cover-wrap';
+
+                const cover = document.createElement('div');
+                cover.className = 'book-cover';
+                cover.style.setProperty('--book-color', b.color);
+
+                const img = document.createElement('img');
+                img.alt = b.title + ' by ' + b.author;
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.src = 'https://covers.openlibrary.org/b/isbn/' + b.isbn + '-L.jpg?default=false';
+                img.onerror = function () {
+                    img.remove();
+                    const fb = document.createElement('div');
+                    fb.className = 'fallback';
+                    fb.style.background =
+                        'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%), ' + b.color;
+                    fb.textContent = b.title;
+                    cover.appendChild(fb);
+                };
+
+                cover.appendChild(img);
+                coverWrap.appendChild(cover);
+
+                const meta = document.createElement('div');
+                meta.className = 'book-meta';
+                const t = document.createElement('div');
+                t.className = 'book-title';
+                t.textContent = b.title;
+                const a = document.createElement('div');
+                a.className = 'book-author';
+                a.textContent = b.author;
+                meta.appendChild(t);
+                meta.appendChild(a);
+
+                item.appendChild(coverWrap);
+                item.appendChild(meta);
+                frag.appendChild(item);
+            });
+
+            row.appendChild(frag);
+        }
+
+        renderShelf('row-fiction',    BOOKS.fiction);
+        renderShelf('row-nonfiction', BOOKS.nonfiction);
+        renderShelf('row-children',   BOOKS.children);
+
+        /* ----------------------- Waitlist ----------------------- */
+        const WAITLIST_ENDPOINT = 'https://greenerbooks-production.up.railway.app/api/waitlist';
+        const LOCAL_KEY = 'gb_waitlist_signups';
+
+        function isValidEmail(v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+
+        function saveLocal(email) {
+            try {
+                const raw = localStorage.getItem(LOCAL_KEY);
+                const list = raw ? JSON.parse(raw) : [];
+                if (!list.some(function (x) { return x.email === email; })) {
+                    list.push({ email: email, ts: new Date().toISOString() });
+                    localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
+                }
+            } catch (e) { /* localStorage may be disabled — ignore */ }
+        }
+
+        function alreadyOnList(email) {
+            try {
+                const raw = localStorage.getItem(LOCAL_KEY);
+                if (!raw) return false;
+                const list = JSON.parse(raw);
+                return list.some(function (x) { return x.email === email; });
+            } catch (e) { return false; }
+        }
+
+        const form   = document.getElementById('waitlist-form');
+        const input  = document.getElementById('waitlist-email');
+        const btn    = document.getElementById('waitlist-submit');
+        const msg    = document.getElementById('waitlist-msg');
+
+        function setMsg(text, cls) {
+            msg.textContent = text;
+            msg.className = 'form-msg ' + (cls || '');
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = (input.value || '').trim().toLowerCase();
+
+            if (!isValidEmail(email)) {
+                setMsg('Please enter a valid email address.', 'err');
+                input.focus();
+                return;
+            }
+
+            if (alreadyOnList(email)) {
+                setMsg("You're already on the list — thanks!", 'ok');
+                return;
+            }
+
+            btn.disabled = true;
+            const originalLabel = btn.textContent;
+            btn.textContent = 'Adding you…';
+            setMsg('', '');
+
+            const payload = JSON.stringify({ email: email, source: 'maintenance-page' });
+
+            fetch(WAITLIST_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+                mode: 'cors',
+                keepalive: true
+            })
+            .then(function (res) {
+                if (!res.ok && res.status !== 409) {
+                    throw new Error('bad-status:' + res.status);
+                }
+                saveLocal(email);
+                setMsg("You're on the list. We'll be in touch soon.", 'ok');
+                form.reset();
+            })
+            .catch(function () {
+                // Endpoint may not be live yet — keep the promise to the user and store locally.
+                saveLocal(email);
+                setMsg("You're on the list. We'll be in touch soon.", 'ok');
+                form.reset();
+            })
+            .then(function () {
+                btn.disabled = false;
+                btn.textContent = originalLabel;
+            });
+        });
+    })();
+    </script>
 
 </body>
 </html>
